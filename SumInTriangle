@@ -1,0 +1,29 @@
+#include<stdio.h>
+int main()
+{
+
+	int T,N,i=0,j=0,array[100][100]={0};
+	scanf("%d",&T);
+	while(T--)
+	{
+		scanf("%d",&N);	
+		for(i=0;i<N;i++)
+			for(j=0;j<=i;j++)
+				scanf("%d",&array[i][j]);
+		i = N -2 ;
+		for(i;i>=0;i--)
+		{
+			for(j=0;j<=i;j++)
+			{
+				array[i][j] = array[i][j] + (array[i+1][j] > array[i+1][j+1] ? array[i+1][j] : array[i+1][j+1]);
+			}
+		
+		}
+
+		printf("%d\n",array[0][0]);	
+	}
+	
+	return 0;
+}
+
+
