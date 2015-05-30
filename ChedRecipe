@@ -1,0 +1,29 @@
+#include<stdio.h>
+int main(){
+	
+	int T,N,count,x,flag,min,sum;
+	scanf("%d",&T);
+	while(T--){
+		count = sum = 0,flag=0,min=1000000;	
+		scanf("%d",&N);
+		
+		int k,x = N;
+		while(N--) 
+		{
+			scanf("%d",&k);
+			sum+=k;
+			
+			if(k<min)
+				min = k;
+			if(k<2)
+		              	flag=1;
+		}
+		if(flag==1)
+			printf("-1\n");
+		else
+		printf("%d\n",sum-min+2);
+		
+	}	
+
+	return 0;
+}
