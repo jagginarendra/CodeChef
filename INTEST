@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	int t,n,divisor,count=0;
+	scanf("%d %d",&t,&divisor);
+	while(t--)
+	{
+		scanf("%d",&n);
+		if(n%divisor==0)
+			count++;
+	}
+	printf("%d",count);
+	return 0;
+} 
