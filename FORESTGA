@@ -1,0 +1,77 @@
+package com;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.util.StringTokenizer;
+
+ class ChefAndTree {
+
+	private static BigInteger height[];
+	private static BigInteger growth[];
+	private static BigInteger woodRequired;
+	private static BigInteger limit;
+	private static int N;
+
+	public static void main(String[] args) throws IOException {
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter writer = new PrintWriter(System.out);
+
+		StringTokenizer st = new StringTokenizer(reader.readLine());
+
+		N = Integer.parseInt(st.nextToken());
+		woodRequired = new BigInteger(st.nextToken());
+		limit = new BigInteger(st.nextToken());
+
+		height = new BigInteger[N];
+		growth = new BigInteger[N];
+
+		for (int i = 0; i < N; i++) {
+
+			st = new StringTokenizer(reader.readLine());
+
+			try {
+				height[i] = new BigInteger(st.nextToken());
+				growth[i] = new BigInteger(st.nextToken());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		long mid = 0;
+		long start = 0;
+		long end = (long) 10E18;
+
+		while (start < end) {
+
+			//System.out.println("in loop,start=" + start + ",end=" + end + " mid" + ((start + end) / 2));
+			mid = (start + end) / 2;
+
+			BigInteger totalWood = BigInteger.ZERO, currentWood = BigInteger.ZERO;
+
+			for (int i = 0; i < N; i++) {
+
+				currentWood = height[i].add(growth[i].multiply(BigInteger.valueOf(mid)));
+
+				if (currentWood.compareTo(limit) >= 0) {
+					totalWood = totalWood.add(currentWood);
+				}
+			}
+			if (totalWood.compareTo(woodRequired) >= 0) {
+				end = mid;
+			} else {
+				start = mid + 1;
+			}
+
+		}
+
+		writer.write(start + "\n");
+		writer.flush();
+
+	}
+}
