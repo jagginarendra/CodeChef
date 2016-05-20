@@ -1,0 +1,57 @@
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+ class PalindromRevised {
+
+	static String input;
+
+	public static boolean isPallindrom(int start, int end, boolean delete) {
+
+		while (start < end) {
+
+			if (input.charAt(start) == input.charAt(end)) {
+
+				start++;
+				end--;
+
+			} else if (!delete) {
+
+				return isPallindrom(start + 1, end, true) || isPallindrom(start, end - 1, true);
+
+			} else {
+				return false;
+			}
+
+		}
+
+		return true;
+	}
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter writer = new PrintWriter(System.out);
+
+		int T = Integer.parseInt(reader.readLine());
+
+		while (T-- > 0) {
+
+			input = reader.readLine();
+
+			boolean status = isPallindrom(0, input.length() - 1, false);
+
+			if (status == false)
+				writer.write("NO\n");
+			else
+				writer.write("YES\n");
+
+			writer.flush();
+
+		}
+
+	}
+}
