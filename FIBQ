@@ -1,0 +1,117 @@
+package com;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+
+class Node {
+
+	int fibonacci;
+
+}
+
+class SegmentTreeFIBQ {
+
+	public static Node nodeArray[];
+	int N, array[];
+
+	public SegmentTreeFIBQ(int array[], int N) {
+
+		this.array = array;
+		this.N = array.length;
+		nodeArray = new Node[getTreeSize(N)];
+		buildSegmentTree(array, 1, 0, N - 1);
+
+	}
+
+	int getTreeSize(int N) {
+
+		int size = 1;
+		for (; size <= N; size <<= 1);
+
+		size <<= 1;
+
+		return size;
+	}
+
+	public static Node buildSegmentTree(int arr[], int current, int start, int end) {
+
+		if (start == end) {
+
+			nodeArray[current] = new Node();
+			nodeArray[current].fibonacci = fib(arr[start]) % 1000000007;
+		}
+
+		int left = current * 2;
+		int right = left + 1;
+		int mid = (start + end) / 2;
+
+		Node leftNode = buildSegmentTree(arr, left, start, mid);
+		Node rightNode = buildSegmentTree(arr, right, mid + 1, end);
+
+		nodeArray[current] = new Node();
+		nodeArray[current] = merge(leftNode, rightNode);
+
+		return nodeArray[current];
+	}
+
+	private static int fib(int n) {
+
+		int F[][] = { { 1, 1 }, { 1, 0 } };
+		if (n == 0)
+			return 0;
+
+		power(F, n - 1);
+
+		return F[0][0];
+
+	}
+
+	private static void power(int[][] F, int n) {
+
+		int M[][] = { { 1, 1 }, { 1, 0 } };
+
+		for (int i = 2; i <= n; i++) {
+			multiply(F, M);
+		}
+	}
+
+	private static void multiply(int[][] F, int[][] M) {
+
+		int x = F[0][0] * M[0][0] + F[0][1] * M[1][0];
+		int y = F[0][0] * M[0][1] + F[0][1] * M[1][1];
+		int z = F[1][0] * M[0][0] + F[1][1] * M[1][0];
+		int w = F[1][0] * M[0][1] + F[1][1] * M[1][1];
+
+		F[0][0] = x;
+		F[0][1] = y;
+		F[1][0] = z;
+		F[1][1] = w;
+
+	}
+
+	public static Node merge(Node leftNode, Node rightNode) {
+
+		return null;
+	}
+
+}
+
+public class FIBQ {
+
+	public static void main(String[] args) throws IOException {
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter writer = new PrintWriter(System.out);
+
+		StringTokenizer st = new StringTokenizer(reader.readLine());
+
+		int N = Integer.parseInt(st.nextToken());
+
+		writer.flush();
+
+	}
+
+}
